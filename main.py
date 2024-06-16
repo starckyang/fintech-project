@@ -11,7 +11,7 @@ class OrderBlockStrategy(Strategy):
         self.order_block_bottom = None
         self.order_trend = None
         self.order_block_found = False
-        self.position_size = 1000
+        self.position_size = 500
 
     def next(self):
         # Check if there's a new order block

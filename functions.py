@@ -2,6 +2,7 @@ import pandas
 import numpy as np
 import pickle
 import mplfinance as mpf
+from datetime import datetime, timedelta
 
 
 # the function to identify the trend of the price
@@ -60,6 +61,25 @@ def identify_order_blocks(df):
                     df.loc[df.index[last_order_block_index], 'Order Block Bot'] = np.nan
                     last_order_block_index = None
     return df
+
+
+def generate_month_intervals(start_date, end_date):
+    start = datetime.strptime(start_date, "%Y-%m-%d")
+    end = datetime.strptime(end_date, "%Y-%m-%d")
+
+    current = start
+    intervals = []
+
+    while current <= end:
+        month_start = current.replace(day=1)
+        next_month = (month_start + timedelta(days=32)).replace(day=1)
+        month_end = next_month - timedelta(days=1)
+        if month_end > end:
+            month_end = end
+        intervals.append((month_start.strftime("%Y-%m-%d"), month_end.strftime("%Y-%m-%d")))
+        current = next_month
+
+    return intervals
 
 
 if __name__ == "__main__":
