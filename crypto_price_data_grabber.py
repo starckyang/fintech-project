@@ -14,8 +14,8 @@ params = {
     "limit": 1000
 }
 # Define the start and end times
-start = "2023-01-01"
-end = "2024-03-31"
+start = "2024-01-01"
+end = "2024-05-31"
 
 month_intervals = generate_month_intervals(start, end)
 price_df = pd.DataFrame()
@@ -100,5 +100,5 @@ for interval in month_intervals:
 
 if not price_df.empty:
     print(price_df)
-    with open('ETHUSDT.pkl', 'wb') as file:
+    with open('ETHUSDT_testing.pkl', 'wb') as file:
         pickle.dump(price_df, file)

@@ -27,7 +27,7 @@ def identify_trend(df):
             else:
                 df.loc[df.index[i], "CHoCH"] = 1
         elif df["Close"][i] > recent_Highs:
-            df["Conti"][i] = 1
+            df.loc[df.index[i], "Conti"] = 1
         if (
             df["Close"][i] < recent_Lows
             and (df["BoS"][i - 1] == 0)
@@ -39,7 +39,7 @@ def identify_trend(df):
             else:
                 df.loc[df.index[i], "CHoCH"] = 1
         elif (df["Close"][i] < recent_Lows) & (df["Close"][i] < recent_Highs):
-            df["Conti"][i] = 1
+            df.loc[df.index[i], "Conti"] = 1
     return df
 
 
@@ -67,13 +67,13 @@ def identify_order_blocks(df):
             # Check for Fair Value Gap
             if last_order_block_index is not None:
                 for k in range(
-                    last_order_block_index + 1, min(last_order_block_index + 3, len(df))
+                    last_order_block_index + 1, min(last_order_block_index + 3, len(df)-3)
                 ):
                     if (
-                        df.loc[df.index[k - 1], "High"]
-                        < df.loc[df.index[k + 1], "Low"] * 1.01
+                        df.loc[df.index[k], "High"]
+                        < df.loc[df.index[k + 2], "Low"] * 1.01
                     ) or (
-                        df.loc[df.index[k - 1], "Low"] > df.loc[df.index[k + 1], "High"]
+                        df.loc[df.index[k], "Low"] > df.loc[df.index[k + 2], "High"]
                     ):
                         break
                 else:
