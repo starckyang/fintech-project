@@ -11,7 +11,7 @@ def identify_trend(df):
     df["BoS"] = 0  # Break of Structure
     df["CHoCH"] = 0  # Change of Character
     df["Conti"] = 0  # If BoS continuously happens
-    local_highs_range = 10  # Number of candles to consider for local highs and lows
+    local_highs_range = 30  # Number of candles to consider for local highs and lows
 
     for i in range(local_highs_range, len(df)):
         recent_Highs = df["High"][i - local_highs_range : i].max()
