@@ -9,13 +9,13 @@ endpoint = "/api/v3/klines"
 
 # Define the parameters
 params = {
-    'symbol': 'ETHUSDT',
+    'symbol': 'BTCUSDT',
     'interval': '1h',  # Interval is required for klines endpoint
     "limit": 1000
 }
 # Define the start and end times
-start = "2024-01-01"
-end = "2024-05-31"
+start = "2020-01-01"
+end = "2021-12-31"
 
 month_intervals = generate_month_intervals(start, end)
 price_df = pd.DataFrame()
@@ -100,5 +100,5 @@ for interval in month_intervals:
 
 if not price_df.empty:
     print(price_df)
-    with open('ETHUSDT_testing.pkl', 'wb') as file:
+    with open('BTCUSDT_training.pkl', 'wb') as file:
         pickle.dump(price_df, file)

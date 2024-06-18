@@ -33,6 +33,7 @@ class OrderBlockStrategy(Strategy):
                 self.buy(sl=stop_loss_price, size=self.position_size//entry_price)
                 self.order_blocks.append([self.order_block_top, self.order_block_bottom, self.order_trend, self.position_size//entry_price])
                 print(f"Longing at {self.data.Close[-1]}")
+                self.index = 3
             elif (self.data.Close[-1] >= self.order_block_top) and \
                     (self.order_trend == "Uptrend") and (len(self.order_blocks) != 0):
                 if (self.order_blocks[-1][0] != self.order_block_top) & (self.order_blocks[-1][2] == "Downtrend"):
@@ -46,6 +47,7 @@ class OrderBlockStrategy(Strategy):
                 self.sell(sl=stop_loss_price, size=self.position_size//entry_price)
                 self.order_blocks.append([self.order_block_top, self.order_block_bottom, self.order_trend, self.position_size//entry_price])
                 print(f"Shorting at {self.data.Close[-1]}")
+                self.index = 3
             elif (self.data.Close[-1] <= self.order_block_bottom) \
                     and (self.order_trend == "Downtrend") and (len(self.order_blocks) != 0):
                 if (self.order_blocks[-1][0] != self.order_block_top) & (self.order_blocks[-1][2] == "Uptrend"):
@@ -83,7 +85,7 @@ class OrderBlockStrategy(Strategy):
 
 if __name__ == "__main__":
     # Load your data
-    with open("ETHUSDT_training.pkl", "rb") as f:
+    with open("ETHUSDT_testing.pkl", "rb") as f:
         data = pickle.load(f)
 
     # Identify BoS, CHoCH, and Order Blocks
@@ -99,5 +101,4 @@ if __name__ == "__main__":
     stats = bt.run()
     print(stats)
     bt.plot()
-
 
